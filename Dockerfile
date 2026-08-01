@@ -1,6 +1,7 @@
 # 1. Get the operating system and Node.js environment
 FROM node:20-alpine
 
+RUN apk upgrade --no-cache
 # 2. Create a folder inside the image for your app
 WORKDIR /usr/src/app
 
