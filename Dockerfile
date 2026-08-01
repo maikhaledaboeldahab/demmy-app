@@ -1,22 +1,26 @@
 # 1. Get the operating system and Node.js environment
 FROM node:24-alpine
 
+# 2. Patch underlying OS vulnerabilities
 RUN apk upgrade --no-cache
-RUN npm install -g npm@latest
-# 2. Create a folder inside the image for your app
+
+# 3. Create a folder inside the image for your app
 WORKDIR /usr/src/app
 
-# 3. Copy your package.json into the image
+# 4. Copy package files
 COPY package*.json ./
 
-# 4. Install the dependencies inside the image
+# 5. Install app dependencies and patch app-level vulnerabilities
 RUN npm install --only=production && npm audit fix --force
 
-# 5. Copy the rest of your app's code into the image
+# 6. Copy application code
 COPY . .
 
-# 6. Switch to a non-root user for security
+# 7. The DevSecOps Master Stroke: Remove npm entirely to eliminate global vulnerabilities
+RUN rm -rf /usr/local/lib/node_modules/npm && rm -f /usr/local/bin/npm
+
+# 8. Run as non-root user
 USER node
 
-# Tell the container what to execute when it wakes up
-CMD ["npm", "start"]
+# 9. Start the app directly with Node (since npm is gone)
+CMD ["node", "app.js"]
