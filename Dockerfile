@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # 4. Install the dependencies inside the image
-RUN npm install --only=production
+RUN npm install --only=production && npm audit fix --force
 
 # 5. Copy the rest of your app's code into the image
 COPY . .
