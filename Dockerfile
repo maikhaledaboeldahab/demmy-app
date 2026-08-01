@@ -1,5 +1,5 @@
 # 1. Get the operating system and Node.js environment
-FROM node:20-alpine
+FROM node:24-alpine
 
 RUN apk upgrade --no-cache
 RUN npm install -g npm@latest
