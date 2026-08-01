@@ -1,0 +1,31 @@
+name: CI Pipeline
+
+# This ensures the pipeline automatically runs whenever code is pushed to the repository.
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Requirement 1: Check out the source code
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      # Log in to Docker Hub using the secrets we created
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Requirement 2 & 3: Build the Docker image and push the image to dockerhub
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-secure-app:latest
