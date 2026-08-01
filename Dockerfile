@@ -2,6 +2,7 @@
 FROM node:20-alpine
 
 RUN apk upgrade --no-cache
+RUN npm install -g npm@latest
 # 2. Create a folder inside the image for your app
 WORKDIR /usr/src/app
 
