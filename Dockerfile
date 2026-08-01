@@ -1,5 +1,5 @@
 # 1. Get the operating system and Node.js environment
-FROM node:18-alpine
+FROM node:20-alpine
 
 # 2. Create a folder inside the image for your app
 WORKDIR /usr/src/app
