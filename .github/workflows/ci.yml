@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Requirement 2 & 3: Build the Docker image and push the image to dockerhub
-      - name: Build and Push Docker Image
+      - name: Build and Push Docker Image 2
         uses: docker/build-push-action@v4
         with:
           context: .
